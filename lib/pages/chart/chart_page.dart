@@ -1,11 +1,6 @@
-
 import 'package:flareline/core/theme/global_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flareline_uikit/components/card/common_card.dart';
-import 'package:flareline/components/charts/bar_chart.dart';
 import 'package:flareline_uikit/components/charts/circular_chart.dart';
 import 'package:flareline_uikit/components/charts/line_chart.dart';
 import 'package:flareline/pages/layout.dart';
@@ -22,80 +17,63 @@ class ChartPage extends LayoutWidget {
           height: 350,
           child: CommonCard(
             child: LineChartWidget(
-              title: 'Revenue',
-              dropdownItems: ['Daily', 'Monthly', 'Yearly'],
-              datas: [
+              title: 'Temperature (°C)',
+              dropdownItems: const ['Last Hour', 'Last Day', 'Last Week'],
+              datas: const [
                 {
-                  'name': 'Marketing Sales',
-                  'color': Color(0xFFFE8111),
+                  'name': 'Temperature',
+                  'color': Color(0xFFFE8111), // Orange
                   'data': [
-                    {'x': 'Jan', 'y': 25},
-                    {'x': 'Fed', 'y': 75},
-                    {'x': 'Mar', 'y': 28},
-                    {'x': 'Apr', 'y': 32},
-                    {'x': 'May', 'y': 40},
-                    {'x': 'Jun', 'y': 48},
-                    {'x': 'Jul', 'y': 44},
-                    {'x': 'Aug', 'y': 42},
-                    {'x': 'Sep', 'y': 70},
-                    {'x': 'Oct', 'y': 65},
-                    {'x': 'Nov', 'y': 55},
-                    {'x': 'Dec', 'y': 78}
-                  ]
-                },
-                {
-                  'name': 'Cases Sales',
-                  'color': Color(0xFF01B7F9),
-                  'data': [
-                    {'x': 'Jan', 'y': 70},
-                    {'x': 'Fed', 'y': 30},
-                    {'x': 'Mar', 'y': 66},
-                    {'x': 'Apr', 'y': 44},
-                    {'x': 'May', 'y': 55},
-                    {'x': 'Jun', 'y': 51},
-                    {'x': 'Jul', 'y': 44},
-                    {'x': 'Aug', 'y': 30},
-                    {'x': 'Sep', 'y': 100},
-                    {'x': 'Oct', 'y': 87},
-                    {'x': 'Nov', 'y': 77},
-                    {'x': 'Dec', 'y': 20}
-                  ]
+                    {'x': '00:00', 'y': 25},
+                    {'x': '01:00', 'y': 26},
+                    {'x': '02:00', 'y': 27},
+                    {'x': '03:00', 'y': 26},
+                    {'x': '04:00', 'y': 25},
+                    {'x': '05:00', 'y': 24},
+                    {'x': '06:00', 'y': 25},
+                    {'x': '07:00', 'y': 26},
+                    {'x': '08:00', 'y': 27},
+                    {'x': '09:00', 'y': 28},
+                    {'x': '10:00', 'y': 29},
+                    {'x': '11:00', 'y': 30},
+                  ],
                 },
               ],
             ),
           ),
         ),
         const SizedBox(height: 16),
-        SizedBox(height: 350, child: CommonCard(child: BarChartWidget())),
-        const SizedBox(
-          height: 16,
-        ),
         SizedBox(
-            height: 350,
-            child: CommonCard(
-              child: CircularhartWidget(
-                title: 'Visitors Analytics',
-                palette: const [
-                  GlobalColors.warn,
-                  GlobalColors.secondary,
-                  GlobalColors.primary
-                ],
-                chartData: const [
-                  {
-                    'x': 'Social Media',
-                    'y': 33,
-                  },
-                  {
-                    'x': 'Direct Search',
-                    'y': 33,
-                  },
-                  {
-                    'x': 'Others',
-                    'y': 34,
-                  },
-                ],
-              ),
-            ))
+          height: 350,
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 350,
+          child: CommonCard(
+            child: CircularhartWidget(
+              title: 'Sensor Analytics',
+              palette: const [
+                GlobalColors.warn,
+                GlobalColors.secondary,
+                GlobalColors.primary,
+              ],
+              chartData: const [
+                {
+                  'x': 'Temperature',
+                  'y': 33,
+                },
+                {
+                  'x': 'Humidity',
+                  'y': 33,
+                },
+                {
+                  'x': 'Pressure',
+                  'y': 34,
+                },
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

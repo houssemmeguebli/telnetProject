@@ -1,7 +1,7 @@
 import 'package:flareline/pages/setting/personal_avatar_widget.dart';
 import 'package:flareline/pages/setting/personal_info_widget.dart';
+import 'package:flareline_uikit/components/sidebar/ConnectionPanel.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
@@ -30,68 +30,85 @@ class SettingsPage extends LayoutWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: _leftWidget(context),
-          flex: 3,
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        Expanded(
-          child: _rightWidget(context),
-          flex: 2,
-        )
+        Expanded(flex: 3, child: _leftWidget(context)),
+        const SizedBox(width: 16),
+        Expanded(flex: 2, child: _rightWidget(context)),
       ],
     );
   }
 
   Widget _mobileWidget(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          _leftWidget(context),
+          const SizedBox(height: 16),
+          _rightWidget(context),
+        ],
+      ),
+    );
+  }
+
+  Widget _leftWidget(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _leftWidget(context),
-        const SizedBox(
-          height: 16,
-        ),
-        _rightWidget(context)
+        const ConnectionPanel(),
+        const SizedBox(height: 20),
+        _tipsSection(context),
+        const SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }
 
-  _titleWidget(String title, Widget childWidget) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
-        height: 50,
-        padding: const EdgeInsets.only(left: 10),
-        alignment: Alignment.centerLeft,
-        child: Text(title),
-      ),
-      const Divider(
-        height: 1,
-      ),
-      Padding(padding: const EdgeInsets.all(16), child: childWidget)
-    ]);
-  }
-
-  ValueNotifier<String> dateNotifier = ValueNotifier("");
-
-  ValueNotifier<bool> checkNotifier = ValueNotifier(false);
-  ValueNotifier<bool> checkNotifier1 = ValueNotifier(false);
-  ValueNotifier<bool> checkNotifier3 = ValueNotifier(false);
-
-  _leftWidget(BuildContext context) {
-    return const Column(
+  Widget _rightWidget(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PersonalInfoWidget(),
-        SizedBox(
-          height: 20,
-        ),
+        const PersonalAvatarWidget(),
+        const SizedBox(height: 20),
+
+        const SizedBox(height: 20),
+
       ],
     );
   }
 
-  DropzoneViewController? dropzoneViewController;
 
-  _rightWidget(BuildContext context) {
-    return const PersonalAvatarWidget();
+  Widget _tipsSection(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.lightbulb_outline, size: 24, color: Theme.of(context).colorScheme.onTertiaryContainer),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  " Quick Tips",
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                      "🔹 Enable two-factor authentication for extra security.\n"
+                      "🔹 Use the 'Connection' panel to check device status.\n"
+                      "🔹 Customize your avatar for a better profile appearance.",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

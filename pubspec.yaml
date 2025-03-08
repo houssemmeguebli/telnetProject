@@ -43,7 +43,13 @@ dependencies:
 
   popover: ^0.2.9
 
+  flutter_spinkit: ^5.1.0
+
   syncfusion_flutter_charts: ^27.1.58
+
+  flutter_code_editor: ^0.2.0
+
+  highlight: ^0.7.0
 
   syncfusion_flutter_datagrid: ^27.1.58
 

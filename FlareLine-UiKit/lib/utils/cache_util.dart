@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:flareline_uikit/entity/cache_entity.dart';
 import 'package:get_storage/get_storage.dart';
 
 /// SimpleCache is a simple and fast in-memory cache.
 class CacheUtil {
+  /*
   /// Private Constructor
   CacheUtil._();
 
@@ -43,7 +43,7 @@ class CacheUtil {
     if (json == null||json.isEmpty) {
       return null;
     }
-    CacheEntity item = CacheEntity.fromJson(jsonDecode(json));
+  //  CacheEntity item = CacheEntity.fromJson(jsonDecode(json));
 
     if (_isExpired(item)) {
       delete(key);
@@ -78,9 +78,10 @@ class CacheUtil {
       expire != null ? DateTime.now().add(expire) : null;
 
   /// Checks if [item] is expired.
-  bool _isExpired(CacheEntity item) {
-    if (item.expire != null &&
-        item.expire! < (DateTime.now().millisecondsSinceEpoch)) {
+  bool _isExpired(//CacheEntity item
+  ) {
+    if (//item.expire != null &&
+       // item.expire! < (DateTime.now().millisecondsSinceEpoch)) {
 
       return true;
     }
@@ -103,4 +104,6 @@ class CacheUtil {
   void remove(String key) {
     _box.remove(getCacheKey(key));
   }
+
+   */
 }

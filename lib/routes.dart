@@ -1,6 +1,4 @@
 import 'package:flareline/deferred_widget.dart';
-import 'package:flareline/pages/modal/modal_page.dart' deferred as modal;
-import 'package:flareline/pages/table/contacts_page.dart' deferred as contacts;
 import 'package:flareline/pages/toast/toast_page.dart' deferred as toast;
 import 'package:flareline/pages/tools/tools_page.dart' deferred as tools;
 import 'package:flutter/material.dart';
@@ -10,22 +8,20 @@ import 'package:flareline/pages/form/form_elements_page.dart' deferred as formEl
 import 'package:flareline/pages/form/form_layout_page.dart' deferred as formLayout;
 import 'package:flareline/pages/auth/sign_in/sign_in_page.dart' deferred as signIn;
 import 'package:flareline/pages/auth/sign_up/sign_up_page.dart' deferred as signUp;
-import 'package:flareline/pages/calendar/calendar_page.dart' deferred as calendar;
 import 'package:flareline/pages/chart/chart_page.dart' deferred as chart;
-import 'package:flareline/pages/dashboard/ecommerce_page.dart';
+import 'package:flareline/pages/dashboard/Dashboard.dart';
 import 'package:flareline/pages/inbox/index.dart' deferred as inbox;
 import 'package:flareline/pages/invoice/invoice_page.dart' deferred as invoice;
 import 'package:flareline/pages/profile/profile_page.dart' deferred as profile;
 import 'package:flareline/pages/resetpwd/reset_pwd_page.dart' deferred as resetPwd;
 import 'package:flareline/pages/setting/settings_page.dart' deferred as settings;
-import 'package:flareline/pages/table/tables_page.dart' deferred as tables;
-
+import 'package:flareline/pages/automaticTest/PythonEditorScreen.dart' deferred as automaticControl;
 typedef PathWidgetBuilder = Widget Function(BuildContext, String?);
 
 final List<Map<String, Object>> MAIN_PAGES = [
-  {'routerPath': '/', 'widget': const EcommercePage()},
-  {'routerPath': '/calendar', 'widget': DeferredWidget(calendar.loadLibrary, () => calendar.CalendarPage())},
+  {'routerPath': '/', 'widget': const Dashboard()},
   {'routerPath': '/profile', 'widget': DeferredWidget(profile.loadLibrary, () => profile.ProfilePage())},
+  {'routerPath': '/automatic-control', 'widget': DeferredWidget(automaticControl.loadLibrary, () => automaticControl.PythonEditorScreen())},
   {
     'routerPath': '/formElements',
     'widget': DeferredWidget(formElements.loadLibrary, () => formElements.FormElementsPage()),
@@ -39,18 +35,10 @@ final List<Map<String, Object>> MAIN_PAGES = [
   },
   {'routerPath': '/invoice', 'widget': DeferredWidget(invoice.loadLibrary, () => invoice.InvoicePage())},
   {'routerPath': '/inbox', 'widget': DeferredWidget(inbox.loadLibrary, () => inbox.InboxWidget())},
-  {'routerPath': '/tables', 'widget': DeferredWidget(tables.loadLibrary, () => tables.TablesPage())},
   {'routerPath': '/settings', 'widget': DeferredWidget(settings.loadLibrary, () => settings.SettingsPage())},
   {'routerPath': '/basicChart', 'widget': DeferredWidget(chart.loadLibrary, () => chart.ChartPage())},
   {'routerPath': '/buttons', 'widget': DeferredWidget(button.loadLibrary, () => button.ButtonPage())},
-  {'routerPath': '/alerts', 'widget': DeferredWidget(alert.loadLibrary, () => alert.AlertPage())},
-  {'routerPath': '/contacts', 'widget': DeferredWidget(contacts.loadLibrary, () => contacts.ContactsPage())},
   {'routerPath': '/tools', 'widget': DeferredWidget(tools.loadLibrary, () => tools.ToolsPage())},
-  {'routerPath': '/toast', 'widget': DeferredWidget(toast.loadLibrary, () => toast.ToastPage())},
-  {
-    'routerPath': '/modal',
-    'widget': DeferredWidget(modal.loadLibrary, () => modal.ModalPage())
-  },
 ];
 
 class RouteConfiguration {

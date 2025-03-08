@@ -11,7 +11,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 abstract class FlarelineLayoutWidget extends StatelessWidget {
   const FlarelineLayoutWidget({super.key});
 
-  String get appName => 'Flareline';
+  String get appName => 'Telnet';
 
   bool get showTitle => true;
 
@@ -49,25 +49,14 @@ abstract class FlarelineLayoutWidget extends StatelessWidget {
   String? get logoImageAsset => null;
 
   Widget? logoWidget(BuildContext context) {
-    bool isDark = isDarkTheme(context);
-    if (logoImageAsset != null) {
-      if (logoImageAsset!.endsWith('svg')) {
-        return SvgPicture.asset(
-          logoImageAsset!,
-          height: 32,
-        );
-      }
-      return Image.asset(
-        logoImageAsset!,
-        width: 32,
-        height: 32,
-      );
-    }
-    return SvgPicture.asset(
-      'assets/logo/logo_${isDark ? 'white' : 'dark'}.svg',
-      height: 32,
+    return Image.asset(
+      'assets/logo/logoTelnet.jpg',
+      width: 45,
+      height: 45,
     );
   }
+
+
 
   Widget? footerWidget(BuildContext context) {
     return null;

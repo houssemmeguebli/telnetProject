@@ -1,12 +1,17 @@
-
 import 'package:flareline/core/theme/global_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flareline_uikit/components/card/common_card.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:flareline/flutter_gen/app_localizations.dart';
 
 class GridCard extends StatelessWidget {
-  const GridCard({super.key});
+  final String name;
+  final String value;
+
+  const GridCard({
+    super.key,
+    required this.name,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,115 +23,78 @@ class GridCard extends StatelessWidget {
   }
 
   Widget contentDesktopWidget(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            child: _itemCardWidget(context,Icons.data_object, '\$3.456K',
-                AppLocalizations.of(context)!.totalViews, '0.43%', true)),
-        const SizedBox(
-          width: 16,
-        ),
-        Expanded(
-            child: _itemCardWidget(context,Icons.shopping_cart, '\$45.2K',
-                AppLocalizations.of(context)!.totalProfit, '0.43%', true)),
-        const SizedBox(
-          width: 16,
-        ),
-        Expanded(
-            child: _itemCardWidget(context,Icons.group, '2.450',
-                AppLocalizations.of(context)!.totalProduct, '0.43%', true)),
-        const SizedBox(
-          width: 16,
-        ),
-        Expanded(
-            child: _itemCardWidget(context,Icons.security_rounded, '3.456',
-                AppLocalizations.of(context)!.totalUsers, '0.43%', false)),
-      ],
-    );
+    return _itemCardWidget(context, name, value);
   }
 
   Widget contentMobileWidget(BuildContext context) {
-    return Column(
-      children: [
-        _itemCardWidget(context, Icons.data_object, '\$3.456K',
-            AppLocalizations.of(context)!.totalViews, '0.43%', true),
-        const SizedBox(
-          height: 16,
-        ),
-        _itemCardWidget(context, Icons.shopping_cart, '\$45.2K',
-            AppLocalizations.of(context)!.totalProfit, '0.43%', true),
-        const SizedBox(
-          height: 16,
-        ),
-        _itemCardWidget(context, Icons.group, '2.450',
-            AppLocalizations.of(context)!.totalProduct, '0.43%', true),
-        const SizedBox(
-          height: 16,
-        ),
-        _itemCardWidget(context, Icons.security_rounded, '3.456',
-            AppLocalizations.of(context)!.totalUsers, '0.43%', false),
-      ],
-    );
+    return _itemCardWidget(context, name, value);
   }
 
-  _itemCardWidget(BuildContext context, IconData icons, String text,
-      String subTitle, String percentText, bool isGrow) {
+  Widget _itemCardWidget(BuildContext context, String name, String value) {
     return CommonCard(
-      height: 166,
+      height: 100,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Sensor Icon (You can customize this based on the sensor type)
             ClipOval(
               child: Container(
-                width: 36,
-                height: 36,
+                width: 20,
+                height: 20,
                 alignment: Alignment.center,
                 color: Colors.grey.shade200,
                 child: Icon(
-                  icons,
-                  color:GlobalColors.sideBar,
+                  _getSensorIcon(name), // Get icon based on sensor name
+                  color: GlobalColors.sideBar,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 12,
-            ),
+            const SizedBox(height: 12),
+            // Sensor Value
             Text(
-              text,
+              value,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 6,
+            const SizedBox(height: 6),
+            // Sensor Name
+            Text(
+              name,
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
-            Row(
-              children: [
-                Text(
-                  subTitle,
-                  style: const TextStyle(fontSize: 10, color: Colors.grey),
-                ),
-                const Spacer(),
-                Text(
-                  percentText,
-                  style: TextStyle(
-                      fontSize: 10,
-                      color: isGrow ? Colors.green : Colors.lightBlue),
-                ),
-                const SizedBox(
-                  width: 3,
-                ),
-                Icon(
-                  isGrow ? Icons.arrow_upward : Icons.arrow_downward,
-                  color: isGrow ? Colors.green : Colors.lightBlue,
-                  size: 12,
-                )
-              ],
-            )
           ],
         ),
       ),
     );
+  }
+
+  // Helper method to get an icon based on the sensor name
+  IconData _getSensorIcon(String name) {
+    switch (name.toLowerCase()) {
+      case "temperature":
+        return Icons.thermostat;
+      case "Speed":
+        return Icons.speed;
+      case "humidity":
+        return Icons.water_drop;
+      case "pressure":
+        return Icons.monitor_weight_outlined;
+      case "tension":
+        return Icons.bolt;
+      case "courant":
+        return Icons.electric_bolt;
+      case "couple":
+        return Icons.settings_input_component;
+      case "vibration":
+        return Icons.vibration;
+      case "Efficiency":
+        return Icons.power_input;
+      case "Push":
+        return Icons.publish_sharp;
+      default:
+        return Icons.speed;
+    }
   }
 }

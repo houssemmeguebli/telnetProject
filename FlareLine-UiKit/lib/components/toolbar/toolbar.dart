@@ -1,7 +1,6 @@
 library flareline_uikit;
 import 'package:flareline_uikit/components/badge/anim_badge.dart';
 import 'package:flareline_uikit/components/buttons/button_widget.dart';
-import 'package:flareline_uikit/components/forms/search_widget.dart';
 import 'package:flareline_uikit/core/theme/flareline_colors.dart';
 import 'package:flareline_uikit/service/localization_provider.dart';
 import 'package:flareline_uikit/service/theme_provider.dart';
@@ -16,7 +15,7 @@ class ToolBarWidget extends StatelessWidget {
   bool? showChangeTheme;
   final Widget? userInfoWidget;
 
-  ToolBarWidget({super.key, this.showMore, this.showChangeTheme,this.userInfoWidget});
+  ToolBarWidget({super.key, this.showMore, this.showChangeTheme, this.userInfoWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -52,68 +51,24 @@ class ToolBarWidget extends StatelessWidget {
 
           return const SizedBox();
         }),
-        ResponsiveBuilder(builder: (context, sizingInformation) {
-          // Check the sizing information here and return your UI
-          if (!(showMore ?? false) &&
-              sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
-            return Container(
-              margin: const EdgeInsets.only(left: 10),
-              width: 280,
-              child: SearchWidget(),
-            );
-          }
 
-          return const SizedBox();
-        }),
         const Spacer(),
         if (showChangeTheme ?? false) const ToggleWidget(),
         const SizedBox(
           width: 10,
         ),
-        InkWell(
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Container(
-                  width: 34,
-                  height: 34,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                      color: FlarelineColors.background, shape: BoxShape.circle),
-                  child: SvgPicture.asset('assets/toolbar/alarm.svg',
-                      width: 18, height: 18)),
-              const Align(
-                child: AnimBadge(),
-              )
-            ],
+
+        Text(
+          "Houssem Meguebli",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).textTheme.bodyLarge?.color,
           ),
         ),
         const SizedBox(
           width: 10,
         ),
-        InkWell(
-          child: Stack(
-            alignment: Alignment.topRight,
-            children: [
-              Container(
-                  width: 34,
-                  height: 34,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                      color: FlarelineColors.background, shape: BoxShape.circle),
-                  child: SvgPicture.asset('assets/toolbar/message.svg',
-                      width: 18, height: 18)),
-              const Align(
-                child: AnimBadge(),
-              )
-            ],
-          ),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        if(userInfoWidget!=null)
-          userInfoWidget!,
         InkWell(
           child: Container(
             margin: const EdgeInsets.only(left: 6),
@@ -133,18 +88,12 @@ class ToolBarWidget extends StatelessWidget {
                     onProfileClick(context);
                   },
                 ),
-                PopupMenuItem<String>(
-                  value: 'value02',
-                  child: Text('My Contacts'),
-                  onTap: () async {
-                    onContactClick(context);
-                  },
-                ),
+
                 PopupMenuItem<String>(
                   value: 'value03',
                   child: Text('Settings'),
                   onTap: () async {
-
+                    onSettingClick(context);
                   },
                 ),
                 PopupMenuItem<String>(
@@ -166,15 +115,12 @@ class ToolBarWidget extends StatelessWidget {
     );
   }
 
-  void onProfileClick(BuildContext context){
+  void onProfileClick(BuildContext context) {
     Navigator.of(context).popAndPushNamed('/profile');
   }
 
-  void onContactClick(BuildContext context){
-    Navigator.of(context).popAndPushNamed('/contacts');
-  }
 
-  void onSettingClick(BuildContext context){
+  void onSettingClick(BuildContext context) {
     Navigator.of(context).popAndPushNamed('/settings');
   }
 
@@ -191,7 +137,7 @@ class ToolBarWidget extends StatelessWidget {
           width: 50,
           height: 20,
           child:
-              Consumer<LocalizationProvider>(builder: (ctx, provider, child) {
+          Consumer<LocalizationProvider>(builder: (ctx, provider, child) {
             return ButtonWidget(
               btnText: e.languageCode,
               type: e.languageCode == provider.languageCode
@@ -206,8 +152,6 @@ class ToolBarWidget extends StatelessWidget {
       }).toList(),
     );
   }
-
-
 }
 
 class ToggleWidget extends StatelessWidget {
@@ -220,8 +164,7 @@ class ToggleWidget extends StatelessWidget {
     bool isDark = context.watch<ThemeProvider>().isDark;
     return InkWell(
       child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 2,horizontal: 3),
-     
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 3),
           decoration: BoxDecoration(
               color: FlarelineColors.background,
               borderRadius: BorderRadius.circular(45)),
@@ -239,7 +182,7 @@ class ToggleWidget extends StatelessWidget {
                         : FlarelineColors.primary),
               ),
               CircleAvatar(
-                 radius: 15,
+                radius: 15,
                 backgroundColor: isDark ? Colors.white : Colors.transparent,
                 child: SvgPicture.asset('assets/toolbar/moon.svg',
                     width: 18,
