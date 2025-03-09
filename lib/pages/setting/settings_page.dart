@@ -1,6 +1,6 @@
 import 'package:flareline/pages/setting/personal_avatar_widget.dart';
 import 'package:flareline/pages/setting/personal_info_widget.dart';
-import 'package:flareline_uikit/components/sidebar/ConnectionPanel.dart';
+import 'package:flareline/pages/setting/ConnectionPanel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';

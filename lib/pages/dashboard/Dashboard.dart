@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flareline/pages/dashboard/grid_card.dart';
 import 'package:flareline/pages/layout.dart';
-
 import 'SensorDataWidget.dart';
 
 class Dashboard extends LayoutWidget {
@@ -14,12 +13,26 @@ class Dashboard extends LayoutWidget {
 
   @override
   Widget contentDesktopWidget(BuildContext context) {
+    // List of sensors with their names and units
+    final List<Map<String, String>> sensors = [
+      {"name": "Temperature", "unit": "°C"},
+      {"name": "Humidity", "unit": "%"},
+      {"name": "Speed", "unit": "T/m"},
+      {"name": "Pressure", "unit": "hPa"},
+      {"name": "Tension", "unit": "V"},
+      {"name": "Current", "unit": "A"},
+      {"name": "Torque", "unit": "N"},
+      {"name": "Vibration", "unit": ""},
+      {"name": "Efficiency", "unit": "%"},
+      {"name": "Push", "unit": ""},
+    ];
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            // Grid Cards (3 per row)
+            // Grid Cards (5 per row)
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -29,67 +42,37 @@ class Dashboard extends LayoutWidget {
                 mainAxisSpacing: 16, // Spacing between cards vertically
                 childAspectRatio: 1.5, // Adjust the aspect ratio as needed
               ),
-              itemCount: 10, // Number of grid cards
+              itemCount: sensors.length,
               itemBuilder: (context, index) {
-                // List of sensors
-                final List<Map<String, String>> sensors = [
-                  {"name": "Temperature", "value": "25°C"},
-                  {"name": "Humidity", "value": "60%"},
-                  {"name": "Speed", "value": "45 T/m"},
-                  {"name": "Pressure", "value": "1013 hPa"},
-                  {"name": "Tension", "value": "60 V"},
-                  {"name": "Courant", "value": "5 A"},
-                  {"name": "Couple", "value": "10 N"},
-                  {"name": "Vibration", "value": "20"},
-                  {"name": "Efficiency", "value": "90 %"},
-                  {"name": "Push", "value": "20"},
-                ];
-
-                // Get the sensor data for the current index
                 final sensor = sensors[index];
-
                 return GridCard(
                   name: sensor["name"]!,
-                  value: sensor["value"]!,
+                  unit: sensor["unit"]!,
                 );
               },
             ),
             const SizedBox(height: 16),
 
-            // Charts (2 per row)
+            // Charts Section (3 charts per row)
             Column(
               children: [
-                const SizedBox(height: 16), // Spacing between rows
-                // Second row of charts
                 Row(
                   children: const [
-                    Expanded(
-                      child: SensorDataWidget(), // Third chart
-                    ),
-                    SizedBox(width: 16), // Spacing between charts
-                    Expanded(
-                      child: SensorDataWidget(), // Fourth chart
-                    ),
-                    SizedBox(width: 16), // Spacing between charts
-                    Expanded(
-                      child: SensorDataWidget(), // Fourth chart
-                    ),
+                    Expanded(child: SensorDataWidget()),
+                    SizedBox(width: 16),
+                    Expanded(child: SensorDataWidget()),
+                    SizedBox(width: 16),
+                    Expanded(child: SensorDataWidget()),
                   ],
                 ),
-                const SizedBox(height: 16), // Spacing between rows
+                const SizedBox(height: 16),
                 Row(
                   children: const [
-                    Expanded(
-                      child: SensorDataWidget(), // Third chart
-                    ),
-                    SizedBox(width: 16), // Spacing between charts
-                    Expanded(
-                      child: SensorDataWidget(), // Fourth chart
-                    ),
-                    SizedBox(width: 16), // Spacing between charts
-                    Expanded(
-                      child: SensorDataWidget(), // Fourth chart
-                    ),
+                    Expanded(child: SensorDataWidget()),
+                    SizedBox(width: 16),
+                    Expanded(child: SensorDataWidget()),
+                    SizedBox(width: 16),
+                    Expanded(child: SensorDataWidget()),
                   ],
                 ),
               ],
@@ -102,6 +85,17 @@ class Dashboard extends LayoutWidget {
 
   @override
   Widget contentMobileWidget(BuildContext context) {
+    // List of sensors for mobile (fewer cards)
+    final List<Map<String, String>> sensors = [
+      {"name": "Temperature", "unit": "°C"},
+      {"name": "Humidity", "unit": "%"},
+      {"name": "Pressure", "unit": "hPa"},
+      {"name": "Tension", "unit": "V"},
+      {"name": "Current", "unit": "A"},
+      {"name": "Torque", "unit": "N"},
+      {"name": "Vibration", "unit": ""},
+    ];
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -113,29 +107,16 @@ class Dashboard extends LayoutWidget {
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1, // 1 card per row on mobile
-                crossAxisSpacing: 16, // Spacing between cards horizontally
-                mainAxisSpacing: 16, // Spacing between cards vertically
-                childAspectRatio: 1.5, // Adjust the aspect ratio as needed
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+                childAspectRatio: 1.5,
               ),
-              itemCount: 7, // Number of grid cards
+              itemCount: sensors.length,
               itemBuilder: (context, index) {
-                // List of sensors
-                final List<Map<String, String>> sensors = [
-                  {"name": "Temperature", "value": "25°C"},
-                  {"name": "Humidity", "value": "60%"},
-                  {"name": "Pressure", "value": "1013 hPa"},
-                  {"name": "Tension", "value": "60 V"},
-                  {"name": "Courant", "value": "5 A"},
-                  {"name": "Couple", "value": "10 N"},
-                  {"name": "Vibration", "value": "20"},
-                ];
-
-                // Get the sensor data for the current index
                 final sensor = sensors[index];
-
                 return GridCard(
                   name: sensor["name"]!,
-                  value: sensor["value"]!,
+                  unit: sensor["unit"]!,
                 );
               },
             ),
@@ -144,17 +125,17 @@ class Dashboard extends LayoutWidget {
             // Charts (1 per row on mobile)
             Column(
               children: const [
-                SensorDataWidget(), // First chart
-                SizedBox(height: 16), // Spacing between charts
-                SensorDataWidget(), // Second chart
-                SizedBox(height: 16), // Spacing between charts
-                SensorDataWidget(), // Third chart
-                SizedBox(height: 16), // Spacing between charts
-                SensorDataWidget(), // Fourth chart
-                SizedBox(height: 16), // Spacing between charts
-                SensorDataWidget(), // Fifth chart
-                SizedBox(height: 16), // Spacing between charts
-                SensorDataWidget(), // Sixth chart
+                SensorDataWidget(),
+                SizedBox(height: 16),
+                SensorDataWidget(),
+                SizedBox(height: 16),
+                SensorDataWidget(),
+                SizedBox(height: 16),
+                SensorDataWidget(),
+                SizedBox(height: 16),
+                SensorDataWidget(),
+                SizedBox(height: 16),
+                SensorDataWidget(),
               ],
             ),
           ],

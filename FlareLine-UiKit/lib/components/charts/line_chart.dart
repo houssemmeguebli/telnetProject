@@ -55,7 +55,7 @@ class LineChartWidget extends BaseWidget<LineChartProvider> {
               ),
               primaryYAxis: const NumericAxis(
                   labelStyle: TextStyle(fontWeight: FontWeight.normal),
-                  labelFormat: '{value}%',
+                  labelFormat: '{value}',
                   axisLine: AxisLine(width: 0),
                   majorTickLines: MajorTickLines(color: Colors.transparent)),
               series: _getDefaultLineSeries(context, viewModel),
